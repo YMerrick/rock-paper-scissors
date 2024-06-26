@@ -96,15 +96,15 @@ function playGame() {
 
     if (humanScore > compueterScore) {
         console.log(`Humans have won! With a score of ${humanScore} to ${compueterScore}`);
-        prompt(`Humans have won! With a score of ${humanScore} to ${compueterScore}`)
+        alert(`Humans have won! With a score of ${humanScore} to ${compueterScore}`)
     }
     if (compueterScore > humanScore) {
         console.log(`Computers have won! With a score of ${compueterScore} to ${humanScore}`);
-        prompt(`Computers have won! With a score of ${compueterScore} to ${humanScore}`)
+        alert(`Computers have won! With a score of ${compueterScore} to ${humanScore}`)
     } 
     if (compueterScore === humanScore) {
         console.log(`Humans and Computers have Tied! The score of was ${humanScore} - ${compueterScore}`);
-        prompt(`Humans and Computers have Tied! The score of was ${humanScore} - ${compueterScore}`)
+        alert(`Humans and Computers have Tied! The score of was ${humanScore} - ${compueterScore}`)
     }
 }
 
