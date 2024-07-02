@@ -65,47 +65,69 @@ function playRound(humanChoice, computerChoice) {
     return outcome;
 }
 
+function declareRoundWiner (winner,humanChoice,computerChoice) {
+    switch (winner) {
+        case 'human':
+            console.log(`You Win! ${humanChoice} beats ${computerChoice}`);
+            break;
+
+        case 'computer':
+            console.log(`You Lose! ${computerChoice} beats ${humanChoice}`);
+            break;
+    
+        default:
+            console.log(`You Tie! ${humanChoice} ties to ${computerChoice}`);
+            break;
+    }
+}
+
+function declareWinner (humanScore, computerScore) {
+    if (humanScore > computerScore) {
+        console.log(`Humans have won! With a score of ${humanScore} to ${computerScore}`);
+        alert(`Humans have won! With a score of ${humanScore} to ${computerScore}`)
+    }
+    if (computerScore > humanScore) {
+        console.log(`Computers have won! With a score of ${computerScore} to ${humanScore}`);
+        alert(`Computers have won! With a score of ${computerScore} to ${humanScore}`)
+    } 
+    if (computerScore === humanScore) {
+        console.log(`Humans and Computers have Tied! The score of was ${humanScore} - ${computerScore}`);
+        alert(`Humans and Computers have Tied! The score of was ${humanScore} - ${computerScore}`)
+    }
+}
+
 function playGame() {
     let humanChoice;
     let computerChoice;
     let humanScore = 0;
-    let compueterScore = 0;
+    let computerScore = 0;
     let roundWinner;
 
-    for (let i = 0; i < 5; i++) {
-        humanChoice = getHumanChoice();
-        computerChoice = getComputerChoice();
-        roundWinner = playRound(humanChoice, computerChoice);
-        switch (roundWinner) {
-            case 'human':
-                console.log(`You Win! ${humanChoice} beats ${computerChoice}`);
-                humanScore++;
-                break;
+    computerChoice = getComputerChoice();
 
-            case 'computer':
-                console.log(`You Lose! ${computerChoice} beats ${humanChoice}`);
-                compueterScore++;
+    const playerChoice = document.querySelector(".selection-container");
+    playerChoice.addEventListener('click', (event) => {
+        let choice = event.target;
+
+        switch (choice.id) {
+            case 'rock':
+                roundWinner = playRound(choice.id,computerChoice);
                 break;
-        
-            default:
-                console.log(`You Tie! ${humanChoice} ties to ${computerChoice}`);
+            case 'paper':
+                roundWinner = playRound(choice.id,computerChoice);
+                break;
+            case 'scissors':
+                roundWinner = playRound(choice.id,computerChoice);
                 break;
         }
+    });
+    
+    declareRoundWiner(roundWinner);
+    if (roundWinner === 'human') humanScore++;
+    if (roundWinner === 'computer') computerScore++;
 
-    }
-
-    if (humanScore > compueterScore) {
-        console.log(`Humans have won! With a score of ${humanScore} to ${compueterScore}`);
-        alert(`Humans have won! With a score of ${humanScore} to ${compueterScore}`)
-    }
-    if (compueterScore > humanScore) {
-        console.log(`Computers have won! With a score of ${compueterScore} to ${humanScore}`);
-        alert(`Computers have won! With a score of ${compueterScore} to ${humanScore}`)
-    } 
-    if (compueterScore === humanScore) {
-        console.log(`Humans and Computers have Tied! The score of was ${humanScore} - ${compueterScore}`);
-        alert(`Humans and Computers have Tied! The score of was ${humanScore} - ${compueterScore}`)
-    }
+    declareWinner(humanScore,computerScore);
+    
 }
 
 playGame();
