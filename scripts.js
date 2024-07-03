@@ -90,14 +90,14 @@ function updateScore(roundWinner) {
     const computerTracker = document.getElementById("computer-score");
     if (roundWinner === 'human') humanScore++;
     if (roundWinner === 'computer') computerScore++;
-    humanTracker.textContent = humanScore;
+    humanTracker.textContent = `${humanScore}`;
     computerTracker.textContent = `${computerScore}`;
 
     if (humanScore === 5 || computerScore === 5) declareWinner(humanScore,computerScore);
 }
 
 function declareRoundWiner (roundWinner,humanChoice,computerChoice) {
-    const winner = document.querySelector(".winner-text")
+    const winner = document.querySelector(".winner-text");
     switch (roundWinner) {
         case 'human':
             winner.textContent = `You Win! ${humanChoice} beats ${computerChoice}`;
@@ -116,6 +116,13 @@ function declareRoundWiner (roundWinner,humanChoice,computerChoice) {
     }
 }
 
+function reset() {
+    humanScore = 0;
+    computerScore = 0;
+    const resetMessage = document.querySelector(".winner-text");
+    resetMessage.textContent = "The game has been reset!";
+}
+
 function declareWinner (humanScore, computerScore) {
     if (humanScore > computerScore) {
         console.log(`Humans have won! With a score of ${humanScore} to ${computerScore}`);
@@ -129,4 +136,7 @@ function declareWinner (humanScore, computerScore) {
         console.log(`Humans and Computers have Tied! The score of was ${humanScore} - ${computerScore}`);
         alert(`Humans and Computers have Tied! The score of was ${humanScore} - ${computerScore}`)
     }
+
+    reset();
+    updateScore();
 }
