@@ -4,6 +4,29 @@ gameChoice.set(1,'rock');
 gameChoice.set(2,'paper');
 gameChoice.set(3,'scissors');
 
+
+let humanScore = 0;
+let computerScore = 0;
+
+const playerChoice = document.querySelector(".selection-container");
+
+playerChoice.addEventListener('click', (event) => {
+    let choice = event.target;
+
+    switch (choice.id) {
+        case 'rock':
+            playRound(choice.id);
+            break;
+        case 'paper':
+            playRound(choice.id);
+            break;
+        case 'scissors':
+            playRound(choice.id);
+            break;
+    }
+});
+
+
 function getComputerChoice() {
     let choice = Math.floor(Math.random() * 3) + 1;
     return gameChoice.get(choice);
@@ -18,64 +41,76 @@ function getHumanChoice() {
     return chosen;
 }
 
-function playRound(humanChoice, computerChoice) {
-    let outcome;
+function resolveRoundWinner(humanChoice, computerChoice) {
     switch(humanChoice) {
         case 'rock':
             switch(computerChoice) {
                 case 'rock':
-                    outcome = `tie`;
-                    break;
+                    return `tie`;
                 case 'paper':
-                    outcome = `computer`;
-                    break;
+                    return `computer`;
                 case 'scissors':
-                    outcome = `human`;
-                    break;
+                    return `human`;
             }
             break;
         case 'paper':
             switch(computerChoice) {
                 case 'rock':
-                    outcome = `human`;
-                    break;
+                    return `human`;
                 case 'paper':
-                    outcome = `tie`;
-                    break;
+                    return `tie`;
                 case 'scissors':
-                    outcome = `computer`;
-                    break;
+                    return `computer`;
             }
             break;
         case 'scissors':
             switch(computerChoice) {
                 case 'rock':
-                    outcome = `computer`;
-                    break;
+                    return `computer`;
                 case 'paper':
-                    outcome = `human`;
-                    break;
+                    return `human`;
                 case 'scissors':
-                    outcome = `tie`;
-                    break;
+                    return `tie`;
             }
             break;
+        default:
+            return 'ERROR'
     }
-
-    return outcome;
 }
 
-function declareRoundWiner (winner,humanChoice,computerChoice) {
-    switch (winner) {
+function playRound(humanChoice) {
+    const computerChoice = getComputerChoice();
+    let roundWinner = resolveRoundWinner(humanChoice,computerChoice);
+    declareRoundWiner(roundWinner,humanChoice,computerChoice);
+    updateScore(roundWinner);
+}
+
+function updateScore(roundWinner) {
+    const humanTracker = document.getElementById("human-score")
+    const computerTracker = document.getElementById("computer-score");
+    if (roundWinner === 'human') humanScore++;
+    if (roundWinner === 'computer') computerScore++;
+    humanTracker.textContent = humanScore;
+    computerTracker.textContent = `${computerScore}`;
+
+    if (humanScore === 5 || computerScore === 5) declareWinner(humanScore,computerScore);
+}
+
+function declareRoundWiner (roundWinner,humanChoice,computerChoice) {
+    const winner = document.querySelector(".winner-text")
+    switch (roundWinner) {
         case 'human':
+            winner.textContent = `You Win! ${humanChoice} beats ${computerChoice}`;
             console.log(`You Win! ${humanChoice} beats ${computerChoice}`);
             break;
 
         case 'computer':
+            winner.textContent = `You Lose! ${computerChoice} beats ${humanChoice}`;
             console.log(`You Lose! ${computerChoice} beats ${humanChoice}`);
             break;
     
         default:
+            winner.textContent = `You Tie! ${humanChoice} ties to ${computerChoice}`;
             console.log(`You Tie! ${humanChoice} ties to ${computerChoice}`);
             break;
     }
@@ -95,39 +130,3 @@ function declareWinner (humanScore, computerScore) {
         alert(`Humans and Computers have Tied! The score of was ${humanScore} - ${computerScore}`)
     }
 }
-
-function playGame() {
-    let humanChoice;
-    let computerChoice;
-    let humanScore = 0;
-    let computerScore = 0;
-    let roundWinner;
-
-    computerChoice = getComputerChoice();
-
-    const playerChoice = document.querySelector(".selection-container");
-    playerChoice.addEventListener('click', (event) => {
-        let choice = event.target;
-
-        switch (choice.id) {
-            case 'rock':
-                roundWinner = playRound(choice.id,computerChoice);
-                break;
-            case 'paper':
-                roundWinner = playRound(choice.id,computerChoice);
-                break;
-            case 'scissors':
-                roundWinner = playRound(choice.id,computerChoice);
-                break;
-        }
-    });
-    
-    declareRoundWiner(roundWinner);
-    if (roundWinner === 'human') humanScore++;
-    if (roundWinner === 'computer') computerScore++;
-
-    declareWinner(humanScore,computerScore);
-    
-}
-
-playGame();
