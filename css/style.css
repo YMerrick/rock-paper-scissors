@@ -1,0 +1,66 @@
+* {
+    box-sizing: border-box;
+}
+
+html {
+    height: 100%;
+}
+
+body {
+    min-height: 100%;
+    align-items: stretch;
+    display: flex;
+    justify-content: center;
+    align-items: stretch;
+    margin: 0;
+}
+
+.container {
+    display:flex;
+    flex: 1;
+    flex-direction: column;
+    justify-content: space-evenly;
+}
+
+.result-container,
+.selection-container {
+    display: flex;
+    flex: 1 0 auto;
+    justify-content: space-evenly;
+}
+
+.selection-container {
+    justify-content: center;
+    align-items: stretch;
+}
+
+.button-container {
+    display: flex;
+    justify-content: space-around;
+    max-width: 250px;
+    flex: 1 0 auto;
+    flex-wrap: wrap;
+    align-items: center;
+}
+
+button {
+    display: flex;
+    flex: 0 0 auto;
+    max-height: 23px;
+    max-width: 31.5px;
+}
+
+.result-container {
+    flex-direction: column;
+    align-items: stretch;
+}
+
+.winner-text {
+    text-align: center;
+}
+
+.score-container {
+    display: flex;
+    justify-content: space-around;
+    flex-wrap: wrap;
+}
